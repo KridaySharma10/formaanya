@@ -67,7 +67,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 1s ease, visibility 1s ease;
     }
 
     .intro h2 {
@@ -76,7 +76,7 @@
       letter-spacing: 0.4em;
       color: #ffd54a;
       text-transform: lowercase;
-      animation: pulse 1.5s infinite ease-in-out;
+      animation: pulse 2s infinite ease-in-out;
     }
 
     .intro.hide {
@@ -89,7 +89,7 @@
       50% { opacity: 1; }
     }
 
-    /* ---------- HEADER TEXT AREA ---------- */
+    /* ---------- TOP CONTENT (TEXT AREA) ---------- */
     .header-content {
       position: absolute;
       top: 6%;
@@ -148,24 +148,26 @@
       opacity: 0.8;
     }
 
-    /* ---------- BOUNDED GARDEN BOX (BOTTOM 35%) ---------- */
+    /* ---------- IMAGINARY CONTAINER FOR SUNFLOWERS (BOTTOM 35%) ---------- */
     .garden-box {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 38vh;
+      height: 38vh; /* Confines flowers strictly to the lower section */
       z-index: 10;
       pointer-events: none;
     }
 
-    .flower-wrapper {
+    .sunflwr {
+      width: 25vh;
+      height: 25vh;
       position: absolute;
       bottom: 0;
       transform: translate(-50%, 0);
     }
 
-    /* ---------- FASTER SUNFLOWER CSS ---------- */
+    /* Stem grows inside the 38vh height only */
     .sunflwr__stem {
       position: absolute;
       transform: translate(-50%, 0%);
@@ -175,7 +177,12 @@
       left: 50%;
       bottom: 0%;
       border-radius: 4px;
-      animation: stem-grow 0.5s cubic-bezier(.4,0,.2,1) forwards;
+      animation: sunflwr__stem 1s cubic-bezier(.4,0,.2,1) forwards;
+    }
+
+    @keyframes sunflwr__stem {
+      0% { height: 0%; }
+      100% { height: 50%; }
     }
 
     .sunflwr__leaf--left {
@@ -188,7 +195,12 @@
       left: 50%;
       transform: translate(-100%, -50%) rotate(-20deg);
       transform-origin: right center;
-      animation: leaf-left 0.4s 0.3s forwards;
+      animation: sunflwr__leaf--left 0.8s 0.7s forwards;
+    }
+
+    @keyframes sunflwr__leaf--left {
+      0% { width: 0%; }
+      100% { width: 22%; }
     }
 
     .sunflwr__leaf--right {
@@ -201,7 +213,12 @@
       left: 50%;
       transform: translate(0%, -50%) rotate(20deg);
       transform-origin: left center;
-      animation: leaf-right 0.4s 0.35s forwards;
+      animation: sunflwr__leaf--right 0.8s 0.8s forwards;
+    }
+
+    @keyframes sunflwr__leaf--right {
+      0% { width: 0%; }
+      100% { width: 22%; }
     }
 
     .sunflwr__center {
@@ -213,9 +230,15 @@
       top: 50%;
       z-index: 5;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      animation: center-grow 0.4s 0.4s forwards;
+      animation: sunflwr__center 0.8s 1s forwards;
     }
 
+    @keyframes sunflwr__center {
+      0% { width: 0%; height: 0%; }
+      100% { width: 28%; height: 28%; }
+    }
+
+    /* Back Row Petals */
     .sunflwr__pedal--1, .sunflwr__pedal--2, .sunflwr__pedal--3,
     .sunflwr__pedal--4, .sunflwr__pedal--5, .sunflwr__pedal--6 {
       border-radius: 50%;
@@ -225,7 +248,7 @@
       left: 50%;
       top: 50%;
       z-index: 3;
-      animation: pedal-back-grow 0.4s 0.5s forwards;
+      animation: grow-pedal-back 0.8s 1.2s forwards;
     }
 
     .sunflwr__pedal--1 { transform: translate(-50%, -50%) rotate(0deg); }
@@ -235,6 +258,12 @@
     .sunflwr__pedal--5 { transform: translate(-50%, -50%) rotate(120deg); }
     .sunflwr__pedal--6 { transform: translate(-50%, -50%) rotate(150deg); }
 
+    @keyframes grow-pedal-back {
+      0% { width: 0%; height: 0%; }
+      100% { width: 14%; height: 48%; }
+    }
+
+    /* Front Row Petals */
     .sunflwr__pedal--7, .sunflwr__pedal--8, .sunflwr__pedal--9,
     .sunflwr__pedal--10, .sunflwr__pedal--11, .sunflwr__pedal--12 {
       border-radius: 40% 60% 40% 60%;
@@ -244,7 +273,7 @@
       left: 50%;
       top: 50%;
       z-index: 4;
-      animation: pedal-front-grow 0.4s 0.6s forwards;
+      animation: grow-pedal-front 0.8s 1.4s forwards;
     }
 
     .sunflwr__pedal--7  { transform: translate(-50%, -50%) rotate(15deg); }
@@ -254,93 +283,9 @@
     .sunflwr__pedal--11 { transform: translate(-50%, -50%) rotate(135deg); }
     .sunflwr__pedal--12 { transform: translate(-50%, -50%) rotate(165deg); }
 
-    /* ---------- FASTER LILY CSS ---------- */
-    .lily__stem {
-      position: absolute;
-      transform: translate(-50%, 0%);
-      width: 3%;
-      height: 0%;
-      background: linear-gradient(to top, #1e3312, #3e5c27);
-      left: 50%;
-      bottom: 0%;
-      border-radius: 4px;
-      animation: stem-grow 0.5s cubic-bezier(.4,0,.2,1) forwards;
-    }
-
-    .lily__center {
-      position: absolute;
-      left: 50%;
-      top: 48%;
-      width: 0%;
-      height: 0%;
-      transform: translate(-50%, -50%);
-      z-index: 6;
-      border-radius: 50%;
-      background: #ffea79;
-      box-shadow: 0 0 8px rgba(255, 234, 121, 0.8);
-      animation: lily-center-grow 0.3s 0.45s forwards;
-    }
-
-    .lily__petal {
-      position: absolute;
-      left: 50%;
-      top: 48%;
-      width: 0%;
-      height: 0%;
-      border-radius: 50% 50% 10% 10% / 80% 80% 20% 20%;
-      transform-origin: center bottom;
-      z-index: 4;
-      background: var(--lily-color, linear-gradient(to top, #ff758c, #ff7eb3));
-      animation: lily-petal-grow 0.4s 0.55s forwards;
-      box-shadow: inset 0 -10px 15px rgba(0,0,0,0.15);
-    }
-
-    .lily__petal--1 { transform: translate(-50%, -100%) rotate(0deg); }
-    .lily__petal--2 { transform: translate(-50%, -100%) rotate(60deg); }
-    .lily__petal--3 { transform: translate(-50%, -100%) rotate(120deg); }
-    .lily__petal--4 { transform: translate(-50%, -100%) rotate(180deg); }
-    .lily__petal--5 { transform: translate(-50%, -100%) rotate(240deg); }
-    .lily__petal--6 { transform: translate(-50%, -100%) rotate(300deg); }
-
-    /* ---------- ANIMATIONS ---------- */
-    @keyframes stem-grow {
-      0% { height: 0%; }
-      100% { height: 50%; }
-    }
-
-    @keyframes leaf-left {
-      0% { width: 0%; }
-      100% { width: 22%; }
-    }
-
-    @keyframes leaf-right {
-      0% { width: 0%; }
-      100% { width: 22%; }
-    }
-
-    @keyframes center-grow {
-      0% { width: 0%; height: 0%; }
-      100% { width: 28%; height: 28%; }
-    }
-
-    @keyframes pedal-back-grow {
-      0% { width: 0%; height: 0%; }
-      100% { width: 14%; height: 48%; }
-    }
-
-    @keyframes pedal-front-grow {
+    @keyframes grow-pedal-front {
       0% { width: 0%; height: 0%; }
       100% { width: 11%; height: 38%; }
-    }
-
-    @keyframes lily-center-grow {
-      0% { width: 0%; height: 0%; }
-      100% { width: 12%; height: 12%; }
-    }
-
-    @keyframes lily-petal-grow {
-      0% { width: 0%; height: 0%; }
-      100% { width: 16%; height: 42%; }
     }
 
     @media (max-width: 768px) {
@@ -370,39 +315,31 @@
       Sunflowers spend their entire lives turning toward the light.<br>
       I never had to search for mine, because somehow I found it in you.
     </p>
-    <span class="click-hint">(click anywhere to grow sunflowers & lilies)</span>
+    <span class="click-hint">(click anywhere to grow more sunflowers)</span>
   </div>
 
   <!-- IMAGINARY BOUNDED BOX FOR FLOWERS (BOTTOM HALF) -->
   <div class="garden-box" id="garden"></div>
 
   <script>
-    // Hide Intro Overlay quickly
+    // Hide Intro Overlay
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('intro').classList.add('hide');
-      }, 800);
+      }, 1200);
     });
 
     const garden = document.getElementById('garden');
 
-    // Lily Color Palette Generator (Vibrant & Romantic Colors)
-    const lilyColors = [
-      'linear-gradient(to top, #ff416c, #ff4b2b)', // Coral Red
-      'linear-gradient(to top, #f77062, #fe5196)', // Romantic Pink
-      'linear-gradient(to top, #e0c3fc, #8ec5fc)', // Soft Lavender Blue
-      'linear-gradient(to top, #f093fb, #f5576c)', // Electric Rose
-      'linear-gradient(to top, #f6d365, #fda085)', // Peach Blossom
-      'linear-gradient(to top, #ffffff, #f1a7a1)', // White-Pink Lily
-      'linear-gradient(to top, #b224ef, #7579ff)'  // Violet Royal
-    ];
-
     function createSunflower(leftPosVw, sizeVh) {
       const flwr = document.createElement('div');
-      flwr.className = 'flower-wrapper';
+      flwr.className = 'sunflwr';
       flwr.style.left = `${leftPosVw}vw`;
       flwr.style.width = `${sizeVh}vh`;
       flwr.style.height = `${sizeVh}vh`;
+      
+      const brightness = 85 + Math.random() * 30;
+      flwr.style.filter = `brightness(${brightness}%)`;
 
       flwr.innerHTML = `
         <div class="sunflwr__leaf--left"></div>
@@ -425,55 +362,21 @@
       garden.appendChild(flwr);
     }
 
-    function createLily(leftPosVw, sizeVh) {
-      const flwr = document.createElement('div');
-      flwr.className = 'flower-wrapper';
-      flwr.style.left = `${leftPosVw}vw`;
-      flwr.style.width = `${sizeVh}vh`;
-      flwr.style.height = `${sizeVh}vh`;
-
-      // Pick a random lily color
-      const randomColor = lilyColors[Math.floor(Math.random() * lilyColors.length)];
-
-      flwr.innerHTML = `
-        <div class="sunflwr__leaf--left"></div>
-        <div class="sunflwr__leaf--right"></div>
-        <div class="lily__stem"></div>
-        <div class="lily__center"></div>
-        <div class="lily__petal lily__petal--1" style="--lily-color: ${randomColor}"></div>
-        <div class="lily__petal lily__petal--2" style="--lily-color: ${randomColor}"></div>
-        <div class="lily__petal lily__petal--3" style="--lily-color: ${randomColor}"></div>
-        <div class="lily__petal lily__petal--4" style="--lily-color: ${randomColor}"></div>
-        <div class="lily__petal lily__petal--5" style="--lily-color: ${randomColor}"></div>
-        <div class="lily__petal lily__petal--6" style="--lily-color: ${randomColor}"></div>
-      `;
-      garden.appendChild(flwr);
-    }
-
-    // Function to spawn random flower type
-    function spawnRandomFlower(leftPosVw, sizeVh) {
-      if (Math.random() > 0.4) {
-        createSunflower(leftPosVw, sizeVh);
-      } else {
-        createLily(leftPosVw, sizeVh);
-      }
-    }
-
-    // Default fast-blooming bouquet on launch
-    const initialPositions = [12, 30, 50, 70, 88];
-    const initialSizes = [22, 28, 30, 26, 21];
+    // Default flowers on launch inside the bounded box
+    const initialPositions = [12, 32, 50, 68, 88];
+    const initialSizes = [22, 28, 30, 26, 20]; // Sizes relative to vh
 
     initialPositions.forEach((pos, idx) => {
       setTimeout(() => {
-        spawnRandomFlower(pos, initialSizes[idx]);
-      }, idx * 100); // Super fast stagger
+        createSunflower(pos, initialSizes[idx]);
+      }, idx * 180);
     });
 
-    // Click anywhere to instantly spawn a new sunflower or lily
+    // Click anywhere to spawn extra sunflowers strictly inside the lower box
     document.addEventListener('click', (e) => {
       const clickX = (e.clientX / window.innerWidth) * 100;
-      const randomSize = 20 + Math.random() * 10;
-      spawnRandomFlower(clickX, randomSize);
+      const randomSize = 20 + Math.random() * 10; 
+      createSunflower(clickX, randomSize);
     });
   </script>
 </body>
